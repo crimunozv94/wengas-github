@@ -955,12 +955,17 @@ async function fetchData(){
   // ── 3. CALCULATE ─────────────────────────────────────────────────────
   if(ethUsd > 100 && gweiNow > 0){
     const ethCost = (gweiNow * 21000 * 1e-9) * ethUsd;
+    // Real cost ratios vs Ethereum (based on actual network gas mechanics)
+    // Arbitrum: ~1% of ETH cost (optimistic rollup, batches txs)
+    // Base: ~0.5% of ETH cost (similar to Arbitrum)
+    // Polygon: ~0.05% of ETH cost (PoS sidechain, pays gas in MATIC ~$0.50)
+    // Solana: ~$0.00025 flat (fixed fee per tx)
     prices = {
       ethereum: +ethCost.toFixed(ethCost < 0.01 ? 4 : 3),
-      arbitrum: +Math.max(0.003, ethCost * 0.008).toFixed(4),
-      base:     +Math.max(0.002, ethCost * 0.004).toFixed(4),
-      polygon:  +(0.004 + Math.random() * 0.006).toFixed(4),
-      solana:   +(0.00025 + Math.random() * 0.0002).toFixed(5),
+      arbitrum: +(ethCost * 0.01).toFixed(5),
+      base:     +(ethCost * 0.005).toFixed(5),
+      polygon:  +(ethCost * 0.0005).toFixed(5),
+      solana:   +(0.00025).toFixed(5),
     };
     fetchOk = true;
   }
@@ -1278,5 +1283,5 @@ document.getElementById("alert-email").placeholder = T[lang].emailPh;
 document.getElementById("alert-limit").placeholder = T[lang].limitPh;
 </script>
 </body>
-<!-- build: 1772801588 -->
+<!-- build: 1772802947 -->
 </html>
