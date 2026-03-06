@@ -3,17 +3,20 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-  <title>WenGas — Ethereum Gas Fee Tracker | Find Cheapest Time to Transact</title>
-  <meta name="description" content="Real-time Ethereum gas fee tracker. Find the cheapest time and chain to send crypto — compare ETH, Arbitrum, Base, Polygon and Solana fees instantly."/>
+  <title>WenGas — Ethereum Gas Fee Live | Cheapest Time &amp; Chain to Transact</title>
+  <meta name="description" content="Live Ethereum gas fee tracker — see current gas price in USD &amp; gwei, updated every 12s. Compare ETH, Arbitrum, Base, Polygon &amp; Solana fees. Find the cheapest time to transact."/>
   <meta name="keywords" content="ethereum gas fee, gas fee tracker, cheap crypto transfer, best time to send ethereum, low gas fees, arbitrum fees, base network fees, polygon fees, solana fees, ethereum gas price, gas fee calculator, crypto gas tracker"/>
   <meta name="robots" content="index, follow"/>
   <meta name="author" content="WenGas"/>
   <link rel="canonical" href="https://wengas.com"/>
+  <link rel="alternate" hreflang="en" href="https://wengas.com"/>
+  <link rel="alternate" hreflang="es" href="https://wengas.com"/>
+  <link rel="alternate" hreflang="x-default" href="https://wengas.com"/>
 
   <!-- Open Graph -->
   <meta property="og:type" content="website"/>
-  <meta property="og:title" content="WenGas — Wen Gas Low? Find Cheap Ethereum Gas Fees"/>
-  <meta property="og:description" content="Real-time gas fee tracker. Find the cheapest time and chain for your crypto transfers. Compare ETH, Arbitrum, Base, Polygon and Solana."/>
+  <meta property="og:title" content="WenGas — Live Ethereum Gas Fee Tracker"/>
+  <meta property="og:description" content="Live ETH gas price in USD, updated every 12 seconds. Compare fees across Ethereum, Arbitrum, Base, Polygon and Solana. Free gas fee calculator included."/>
   <meta property="og:url" content="https://wengas.com"/>
   <meta property="og:site_name" content="WenGas"/>
   <meta property="og:image" content="https://wengas.com/og-image.png"/>
@@ -29,12 +32,65 @@
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "WenGas",
+    "name": "WenGas — Ethereum Gas Fee Tracker",
     "url": "https://wengas.com",
-    "description": "Real-time Ethereum gas fee tracker. Find the cheapest time and chain to send crypto.",
+    "description": "Real-time Ethereum gas fee tracker. Compare ETH, Arbitrum, Base, Polygon and Solana fees. Find the cheapest time and chain to transact.",
     "applicationCategory": "FinanceApplication",
     "operatingSystem": "Web",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    "browserRequirements": "Requires JavaScript",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "featureList": ["Live gas price in USD", "Multi-chain comparison", "Gas fee calculator", "Price alerts via email", "Best time to transact"],
+    "mainEntity": {
+      "@type": "Dataset",
+      "name": "Ethereum Gas Price — Live",
+      "description": "Real-time Ethereum network gas fee in USD for a standard ETH transfer (21,000 gas units). Calculated as: gas price (gwei) × 21,000 × 0.000000001 × ETH/USD price.",
+      "variableMeasured": "Ethereum Gas Fee in USD",
+      "measurementTechnique": "Ethereum mainnet JSON-RPC method eth_gasPrice via public nodes (cloudflare-eth.com, llamarpc.com, ankr.com). Updated every 12 seconds.",
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "temporalCoverage": "live",
+      "url": "https://wengas.com",
+      "publisher": { "@type": "Organization", "name": "WenGas", "url": "https://wengas.com" }
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the current Ethereum gas fee?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The current Ethereum gas fee for a standard transfer (21,000 gas) is shown live on WenGas.com. It is calculated as: current gas price in gwei × 21,000 × 0.000000001 × current ETH price in USD. At typical network conditions (0.1–5 gwei), this ranges from $0.001 to $0.50 USD."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is gwei?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Gwei is the unit used to measure Ethereum gas prices. 1 gwei = 0.000000001 ETH (1 billionth of 1 ETH). A standard ETH transfer costs 21,000 gas units. To get the fee in ETH: multiply gwei × 21,000 × 0.000000001. To get USD: multiply that result by the current ETH price."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which blockchain has the cheapest gas fees?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Solana consistently has the cheapest fees at around $0.00025 per transaction. Among Ethereum L2s, Base and Arbitrum cost roughly 99% less than Ethereum mainnet — typically $0.001 to $0.01 per transfer. Polygon is also very cheap at $0.001 to $0.003. Ethereum mainnet is the most expensive, ranging from $0.01 to $50+ during congestion."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When is the cheapest time to send Ethereum?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ethereum gas fees are cheapest between 2am and 8am UTC, when US and European users are asleep. Weekends also tend to have lower fees than weekdays. WenGas shows a live hourly chart of the cheapest times to transact based on historical network load patterns."
+        }
+      }
+    ]
   }
   </script>
 
@@ -253,6 +309,15 @@
     #hour-subtitle{font-size:9px;color:#666;margin-bottom:14px;margin-top:-10px}
 
     /* Footer */
+    #methodology{border:1px solid #1e1e28;border-radius:12px;padding:20px 24px;margin-bottom:16px;background:#0a0a0f}
+    #methodology-title{font-size:10px;letter-spacing:2px;color:#888;font-weight:700;margin-bottom:14px}
+    #methodology-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .mth-item{padding:10px 0}
+    .mth-label{font-size:8px;letter-spacing:2px;color:#444;margin-bottom:4px}
+    .mth-val{font-size:11px;color:#888;margin-bottom:3px}
+    .mth-val code{color:#00FF87;font-size:10px;background:#0f1a0f;padding:1px 5px;border-radius:3px}
+    .mth-sub{font-size:9px;color:#333;line-height:1.5}
+    @media(max-width:639px){#methodology-grid{grid-template-columns:1fr 1fr}}
     #footer{border-top:1px solid #111;padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
     #footer-left{font-size:9px;color:#222;letter-spacing:1px}
     #footer-right{font-size:9px;color:#1a1a1a}
@@ -333,7 +398,7 @@
     <div id="verdict-glow"></div>
     <div id="verdict-label-row">
       <div>
-        <div id="gas-sublabel">ETHEREUM GAS FEE · RIGHT NOW</div>
+        <div id="gas-sublabel">ETHEREUM GAS FEE · RIGHT NOW · <time id="live-timestamp" datetime="" style="color:#444;font-size:9px;letter-spacing:1px"></time></div>
         <div id="gas-price-label">Current network fee for a standard transfer:</div>
         <div id="gas-price" style="color:#FF8C00">USD $...</div>
         <div id="gas-gwei-row"><span id="gwei-display">— gwei</span><span id="gas-eth-usd"></span></div>
@@ -525,9 +590,35 @@
   </div>
 
   <!-- FOOTER -->
+  <!-- METHODOLOGY — E-E-A-T trust signals for Google/AI crawlers -->
+  <div id="methodology">
+    <div id="methodology-title">📡 DATA METHODOLOGY</div>
+    <div id="methodology-grid">
+      <div class="mth-item">
+        <div class="mth-label">GAS SOURCE</div>
+        <div class="mth-val">Ethereum mainnet JSON-RPC · <code>eth_gasPrice</code></div>
+        <div class="mth-sub">cloudflare-eth.com · llamarpc.com · ankr.com</div>
+      </div>
+      <div class="mth-item">
+        <div class="mth-label">ETH PRICE</div>
+        <div class="mth-val">Coinbase API · Binance API</div>
+        <div class="mth-sub">Refreshed every 60 seconds</div>
+      </div>
+      <div class="mth-item">
+        <div class="mth-label">FORMULA</div>
+        <div class="mth-val">gwei × 21,000 × 10⁻⁹ × ETH/USD</div>
+        <div class="mth-sub">Standard transfer = 21,000 gas units</div>
+      </div>
+      <div class="mth-item">
+        <div class="mth-label">UPDATE RATE</div>
+        <div class="mth-val">Every 12 seconds</div>
+        <div class="mth-sub">Aligned to Ethereum block time (~12s)</div>
+      </div>
+    </div>
+  </div>
   <div id="footer">
-    <span id="footer-left">⛽ WENGAS.COM</span>
-    <span id="footer-right" id="footer-right">Affiliate links · Not financial advice</span>
+    <span id="footer-left">⛽ WENGAS.COM · <a href="https://wengas.com" style="color:#333;text-decoration:none">Real-time Ethereum Gas Fee Tracker</a></span>
+    <span id="footer-right">Affiliate links · Not financial advice · Data from public Ethereum nodes</span>
   </div>
 
 </div><!-- /main -->
@@ -999,6 +1090,14 @@ async function fetchData(){
   if(gweiEl) gweiEl.textContent = gweiNow > 0
     ? `${gweiNow.toFixed(3)} gwei` : "— gwei";
 
+  // ISO timestamp — E-E-A-T signal for search engines
+  const tsEl = document.getElementById("live-timestamp");
+  if(tsEl){
+    const iso = new Date().toISOString();
+    tsEl.setAttribute("datetime", iso);
+    tsEl.textContent = "UPDATED " + new Date().toLocaleTimeString("en-US",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false}) + " UTC";
+  }
+
   const _geu=document.getElementById("gas-eth-usd"); if(_geu) _geu.textContent=ethUsd>100?` · ETH $${Math.round(ethUsd).toLocaleString()}`:"";
 
   updateFormulaBox();
@@ -1287,5 +1386,5 @@ document.getElementById("alert-email").placeholder = T[lang].emailPh;
 document.getElementById("alert-limit").placeholder = T[lang].limitPh;
 </script>
 </body>
-<!-- build: 1772808120 -->
+<!-- build: 1772836368 -->
 </html>
