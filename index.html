@@ -65,7 +65,7 @@
     #logo-beta{font-size:8px;background:#1a1a1a;border:1px solid #2a2a2a;padding:2px 6px;border-radius:3px;color:#444;letter-spacing:1px}
     #header-right{display:flex;align-items:center;gap:16px}
     #live-dot{width:6px;height:6px;border-radius:50%;background:#00FF87;display:inline-block;flex-shrink:0;animation:pulse 2s ease-in-out infinite}
-    #live-label{font-size:10px;color:#444;letter-spacing:1px}
+    #live-label{font-size:10px;color:#888;letter-spacing:1px}
     #lang-toggle{display:flex;background:#111;border:1px solid #1e1e1e;border-radius:5px;overflow:hidden}
     .lang-btn{padding:5px 13px;background:transparent;color:#555;font-size:11px;letter-spacing:1px;border:none;cursor:pointer;font-family:'DM Mono',monospace;transition:all .15s ease}
     .lang-btn.active{background:#FF6B2B;color:#fff;font-weight:500}
@@ -81,33 +81,33 @@
     #subtitle{color:#555;font-size:13px;max-width:440px;margin:0 auto;line-height:1.7}
 
     /* Verdict card */
-    #verdict-card{border-radius:10px;padding:28px;margin-bottom:16px;position:relative;overflow:hidden;transition:border-color .4s,background .4s}
+    #verdict-card{border-radius:12px;padding:28px;margin-bottom:16px;position:relative;overflow:hidden;transition:border-color .4s,background .4s;box-shadow:0 8px 32px rgba(0,0,0,.5)}
     #verdict-glow{position:absolute;top:0;right:0;width:180px;height:180px;pointer-events:none;border-radius:50%}
     #verdict-label-row{display:flex;flex-direction:row;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
-    #gas-sublabel{font-size:9px;letter-spacing:2px;color:#444;margin-bottom:8px}
+    #gas-sublabel{font-size:9px;letter-spacing:2px;color:#888;margin-bottom:8px}
     #gas-price{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,13vw,76px);line-height:1;letter-spacing:2px}
-    #gas-price-label{font-size:12px;color:#555;margin-bottom:8px;line-height:1.6}
-    #gas-per-tx{font-size:10px;color:#3a3a3a;margin-top:4px}
-    #formula-box{margin-top:12px;padding:10px 14px;background:#0d0d0d;border:1px solid #1a1a1a;border-radius:8px;border-left:3px solid #333}
-    #formula-title{font-size:9px;letter-spacing:2px;color:#333;margin-bottom:8px}
+    #gas-price-label{font-size:12px;color:#aaa;margin-bottom:8px;line-height:1.6}
+    #gas-per-tx{font-size:10px;color:#666;margin-top:4px}
+    #formula-box{margin-top:12px;padding:10px 14px;background:#111118;border:1px solid #2a2a35;border-radius:8px;border-left:3px solid #555}
+    #formula-title{font-size:9px;letter-spacing:2px;color:#888;margin-bottom:8px}
     #formula-line{font-size:13px;display:flex;flex-wrap:wrap;align-items:center;gap:2px;line-height:2}
-    .fval{font-family:'Bebas Neue',sans-serif;font-size:16px;color:#555;letter-spacing:1px}
-    .fop{color:#2a2a2a;font-size:11px}
+    .fval{font-family:'Bebas Neue',sans-serif;font-size:16px;color:#aaa;letter-spacing:1px}
+    .fop{color:#555;font-size:11px}
     .fresult{color:#00FF87 !important;font-size:18px}
-    #formula-sub{font-size:9px;color:#2a2a2a;margin-top:4px;letter-spacing:0.5px}
+    #formula-sub{font-size:9px;color:#555;margin-top:4px;letter-spacing:0.5px}
     #gas-gwei-row{display:flex;align-items:center;gap:10px;margin-top:5px;margin-bottom:2px}
-    #gwei-display{font-size:15px;letter-spacing:1px;color:#666;font-family:"Bebas Neue",sans-serif}
-    #gas-eth-usd{font-size:11px;color:#333;margin-left:6px}
+    #gwei-display{font-size:18px;letter-spacing:1.5px;color:#E8E8E8;font-family:"Bebas Neue",sans-serif;font-weight:400}
+    #gas-eth-usd{font-size:12px;color:#888;margin-left:8px;font-weight:500}
     #verdict-right{text-align:right}
     #verdict-status{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;margin-bottom:6px}
     #verdict-sub{font-size:12px;color:#666}
     #verdict-window{margin-top:10px;font-size:10px;padding:6px 12px;border-radius:4px;display:inline-block}
 
     /* Chain table */
-    #chain-table{border:1px solid #161616;border-radius:10px;overflow:hidden;margin-bottom:16px}
-    #chain-header{padding:11px 24px;border-bottom:1px solid #161616;display:flex;justify-content:space-between;align-items:center;background:#0F0F12}
-    #chain-header-title{font-size:10px;letter-spacing:2px;color:#444}
-    #chain-tick{font-size:9px;color:#222}
+    #chain-table{border:1px solid #2a2a35;border-radius:12px;overflow:hidden;margin-bottom:16px;background:#0F0F14;box-shadow:0 4px 24px rgba(0,0,0,.4)}
+    #chain-header{padding:13px 24px;border-bottom:1px solid #1e1e28;display:flex;justify-content:space-between;align-items:center;background:#13131A}
+    #chain-header-title{font-size:11px;letter-spacing:2px;color:#E8E8E8;font-weight:700}
+    #chain-tick{font-size:9px;color:#444}
     .chain-row{padding:16px 24px;border-bottom:1px solid #0F0F0F;transition:all .2s ease;cursor:default}
     .chain-row:last-child{border-bottom:none}
     .chain-row:hover{background:rgba(255,255,255,.04);transform:translateX(3px)}
@@ -115,7 +115,7 @@
     .chain-left{display:flex;align-items:center;gap:10px;min-width:0}
     .chain-emoji{font-size:18px;flex-shrink:0}
     .chain-name{font-size:13px;font-weight:500}
-    .chain-symbol{font-size:9px;color:#2a2a2a}
+    .chain-symbol{font-size:9px;color:#555}
     .chain-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
     .chain-price{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;text-align:right}
     .chain-savings{font-size:9px;color:#00FF87;text-align:right}
@@ -125,8 +125,8 @@
     .chain-bar-fill{height:100%;border-radius:2px;transition:width .9s ease}
 
     /* Hourly chart */
-    #hour-section{border:1px solid #161616;border-radius:10px;padding:28px;margin-bottom:16px;background:#0F0F12;position:relative}
-    #hour-title{font-size:10px;letter-spacing:2px;color:#444;margin-bottom:16px}
+    #hour-section{border:1px solid #2a2a35;border-radius:12px;padding:28px;margin-bottom:16px;background:#0F0F14;position:relative;box-shadow:0 4px 24px rgba(0,0,0,.4)}
+    #hour-title{font-size:11px;letter-spacing:2px;color:#E8E8E8;font-weight:700;margin-bottom:16px}
     #hour-bars{display:flex;align-items:flex-end;gap:2px;height:64px}
     .hbar{flex:1;min-height:3px;border-radius:2px 2px 0 0;cursor:crosshair;transition:opacity .15s ease}
     #hour-labels{display:flex;justify-content:space-between;margin-top:6px}
@@ -135,7 +135,7 @@
     #hour-legend{display:grid;grid-template-columns:repeat(4,auto);gap:10px;margin-top:14px}
     .legend-item{display:flex;align-items:center;gap:5px}
     .legend-dot{width:8px;height:8px;border-radius:1px;flex-shrink:0}
-    .legend-text{font-size:9px;color:#333}
+    .legend-text{font-size:9px;color:#888}
     #hour-tooltip{position:absolute;background:#1a1a1f;border:1px solid #2a2a2a;border-radius:6px;padding:10px 14px;pointer-events:none;z-index:50;min-width:130px;box-shadow:0 8px 24px rgba(0,0,0,.8);display:none;top:44px}
     #tt-hour{font-size:11px;color:#666;margin-bottom:3px}
     #tt-label{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1px;margin-bottom:3px}
@@ -143,9 +143,9 @@
     #tt-fee{font-size:10px;color:#444;margin-top:2px}
 
     /* Alert */
-    #alert-section{border:1px solid #161616;border-radius:10px;padding:28px;margin-bottom:28px;background:#0D0D10}
-    #alert-title{font-size:10px;letter-spacing:2px;color:#555;margin-bottom:10px}
-    #alert-desc{font-size:12px;color:#555;margin-bottom:18px;line-height:1.7}
+    #alert-section{border:1px solid #FF6B2B44;border-radius:12px;padding:28px;margin-bottom:28px;background:#0D0D10;box-shadow:0 4px 24px rgba(255,107,43,.06)}
+    #alert-title{font-size:12px;letter-spacing:2px;color:#E8E8E8;font-weight:700;margin-bottom:10px}
+    #alert-desc{font-size:12px;color:#888;margin-bottom:18px;line-height:1.7}
     #alert-net-label{font-size:9px;letter-spacing:1.5px;color:#2a2a2a;margin-bottom:8px}
     #net-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:16px}
     .net-btn{padding:8px 12px;background:#111;border:1px solid #1e1e1e;border-radius:6px;color:#444;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;font-family:'DM Mono',monospace;transition:all .15s ease}
@@ -164,8 +164,8 @@
     #alert-success-sub{color:#333;font-size:11px;margin-top:6px}
 
     /* Price Legend */
-    #price-legend{border:1px solid #161616;border-radius:10px;padding:20px 24px;margin-bottom:16px;background:#0F0F12}
-    #price-legend-title{font-size:10px;letter-spacing:2px;color:#444;margin-bottom:14px}
+    #price-legend{border:1px solid #2a2a35;border-radius:12px;padding:20px 24px;margin-bottom:16px;background:#0F0F14;box-shadow:0 4px 24px rgba(0,0,0,.4)}
+    #price-legend-title{font-size:11px;letter-spacing:2px;color:#E8E8E8;font-weight:700;margin-bottom:14px}
     #price-legend-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
     .pl-item{background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:12px 10px;text-align:center}
     .pl-dot{width:10px;height:10px;border-radius:50%;margin:0 auto 8px}
@@ -178,9 +178,9 @@
     }
 
     /* Calculator */
-    #calc-section{border:1px solid #161616;border-radius:10px;padding:20px 24px;margin-bottom:16px;background:#0D0D10}
-    #calc-title{font-size:10px;letter-spacing:2px;color:#444;margin-bottom:3px}
-    #calc-subtitle{font-size:11px;color:#2a2a2a}
+    #calc-section{border:1px solid #2a2a35;border-radius:12px;padding:20px 24px;margin-bottom:16px;background:#0D0D10;box-shadow:0 4px 24px rgba(0,0,0,.4)}
+    #calc-title{font-size:12px;letter-spacing:2px;color:#E8E8E8;font-weight:700;margin-bottom:3px}
+    #calc-subtitle{font-size:11px;color:#666}
     #calc-toggle-btn{font-size:10px;color:#333;letter-spacing:1px;transition:color .2s}
     #calc-header:hover #calc-toggle-btn{color:#FF6B2B}
     #calc-body{margin-top:20px}
@@ -224,9 +224,9 @@
     }
 
     /* Historical chart */
-    #history-section{border:1px solid #161616;border-radius:10px;padding:24px;margin-bottom:16px;background:#0F0F12}
-    #history-title{font-size:10px;letter-spacing:2px;color:#444}
-    #history-subtitle{font-size:9px;color:#2a2a2a;margin-bottom:16px;margin-top:4px}
+    #history-section{border:1px solid #2a2a35;border-radius:12px;padding:24px;margin-bottom:16px;background:#0F0F14;box-shadow:0 4px 24px rgba(0,0,0,.4)}
+    #history-title{font-size:11px;letter-spacing:2px;color:#E8E8E8;font-weight:700}
+    #history-subtitle{font-size:9px;color:#666;margin-bottom:16px;margin-top:4px}
     #history-bars-wrap{position:relative;margin-bottom:6px}
     #history-bars{display:flex;align-items:flex-end;gap:2px;height:80px}
     .hbar-hist{flex:1;min-height:2px;border-radius:1px 1px 0 0;cursor:pointer;transition:opacity .1s ease;opacity:.75}
@@ -250,7 +250,7 @@
     @media(max-width:639px){#referral-cta{padding:14px}#referral-msg{font-size:11px}}
 
     /* Hour subtitle */
-    #hour-subtitle{font-size:9px;color:#2a2a2a;margin-bottom:14px;margin-top:-10px}
+    #hour-subtitle{font-size:9px;color:#666;margin-bottom:14px;margin-top:-10px}
 
     /* Footer */
     #footer{border-top:1px solid #111;padding-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
@@ -360,7 +360,7 @@
 
   <!-- PRICE LEGEND -->
   <div id="price-legend">
-    <div id="price-legend-title">HOW WE RATE GAS</div>
+    <div id="price-legend-title">📊 HOW WE RATE GAS</div>
     <div id="price-legend-grid">
       <div class="pl-item">
         <div class="pl-dot" style="background:#00FF87"></div>
@@ -392,7 +392,7 @@
   <!-- CHAIN TABLE -->
   <div id="chain-table">
     <div id="chain-header">
-      <span id="chain-header-title">CHAIN COMPARISON</span>
+      <span id="chain-header-title">⛓ CHAIN COMPARISON</span>
       <span id="chain-tick">UPDATE #0</span>
     </div>
     <div id="chain-rows"></div>
@@ -410,14 +410,14 @@
 
   <!-- GAS CALCULATOR -->
   <div id="calc-section">
-    <div id="calc-header" onclick="toggleCalc()" style="cursor:pointer;display:flex;justify-content:space-between;align-items:center">
+    <div id="calc-header" style="display:flex;justify-content:space-between;align-items:center">
       <div>
-        <div id="calc-title">⚡ GAS CALCULATOR</div>
+        <div id="calc-title">🧮 GAS CALCULATOR</div>
         <div id="calc-subtitle">How much will your transfer cost right now?</div>
       </div>
-      <div id="calc-toggle-btn">▼ OPEN</div>
+
     </div>
-    <div id="calc-body" style="display:none">
+    <div id="calc-body">
       <div id="calc-inputs">
         <div class="calc-input-group">
           <label id="calc-label-amount">Transfer amount (USD)</label>
@@ -461,7 +461,7 @@
 
   <!-- HOURLY CHART -->
   <div id="hour-section">
-    <div id="hour-title">CHEAPEST HOURS TO TRANSACT (UTC)</div>
+    <div id="hour-title">🕐 CHEAPEST HOURS TO TRANSACT (UTC)</div>
     <div id="hour-subtitle">Based on historical Ethereum network load patterns. Lower bar = cheaper gas.</div>
     <div id="hour-tooltip">
       <div id="tt-hour"></div>
@@ -486,7 +486,7 @@
   <!-- HISTORICAL CHART -->
   <div id="history-section">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-      <div id="history-title">ETH GAS — LAST 30 DAYS (avg $/transfer)</div>
+      <div id="history-title">📈 ETH GAS — LAST 30 DAYS (avg $/transfer)</div>
       <div id="history-loading" style="font-size:9px;color:#333">loading...</div>
     </div>
     <div id="history-subtitle">Historical average cost of a standard ETH transfer per day.</div>
@@ -504,7 +504,7 @@
 
   <!-- PRICE ALERT -->
   <div id="alert-section">
-    <div id="alert-title">🔔 PRICE ALERT</div>
+    <div id="alert-title">🔔 GAS PRICE ALERT</div>
     <p id="alert-desc">Get emailed when gas on your chosen network drops below your limit.</p>
     <div id="alert-net-label">CHOOSE NETWORK</div>
     <div id="net-grid"></div>
@@ -540,7 +540,7 @@ const CHAINS = [
   { id:"ethereum", name:"Ethereum", symbol:"ETH",  emoji:"⟠", color:"#627EEA", fallback:0.018,   url:"https://app.uniswap.org/#/swap?utm_source=wengas" },
   { id:"arbitrum", name:"Arbitrum", symbol:"ARB",  emoji:"🔵", color:"#12AAFF", fallback:0.003,  url:"https://rango.vip/a/xL1Rup?utm_source=wengas&fromBlockchain=ETH&toBlockchain=ARBITRUM" },
   { id:"base",     name:"Base",     symbol:"BASE", emoji:"🔷", color:"#0052FF", fallback:0.002,  url:"https://rango.vip/a/xL1Rup?utm_source=wengas&fromBlockchain=ETH&toBlockchain=BASE" },
-  { id:"polygon",  name:"Polygon",  symbol:"POL",  emoji:"🟣", color:"#8247E5", fallback:0.02,  url:"https://rango.vip/a/xL1Rup?utm_source=wengas&fromBlockchain=ETH&toBlockchain=POLYGON" },
+  { id:"polygon",  name:"Polygon",  symbol:"POL",  emoji:"🟣", color:"#8247E5", fallback:0.001, url:"https://rango.vip/a/xL1Rup?utm_source=wengas&fromBlockchain=ETH&toBlockchain=POLYGON" },
   { id:"solana",   name:"Solana",   symbol:"SOL",  emoji:"◎",  color:"#9945FF", fallback:0.001, url:"https://jup.ag/?ref=ceqchgh1joq2&utm_source=wengas" },
 ];
 
@@ -899,14 +899,13 @@ function submitAlert(e){
   const limit=document.getElementById("alert-limit").value;
   document.getElementById("alert-network-hidden").value=alertNet;
   const form=document.getElementById("alert-form");
-  // Use XMLHttpRequest to avoid CORS preflight issues with FormSubmit
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST","https://formsubmit.co/ajax/wengas.alerts@gmail.com");
-  xhr.setRequestHeader("Content-Type","application/json");
-  xhr.setRequestHeader("Accept","application/json");
+  // Send styled HTML email via /api?type=subscribe (Resend)
   const email = document.getElementById("alert-email").value;
-  const network = alertNet;
-  xhr.send(JSON.stringify({email,network,threshold:limit,_subject:"New WenGas Alert",_captcha:"false"}));
+  fetch("/api?type=subscribe", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({ email, network: alertNet, threshold: limit })
+  }).then(r=>r.json()).then(d=>console.log("Email sent:",d)).catch(e=>console.warn("Email error:",e));
   document.getElementById("alert-form").style.display="none";
   document.getElementById("net-grid").style.display="none";
   document.getElementById("alert-net-label").style.display="none";
@@ -964,7 +963,7 @@ async function fetchData(){
       ethereum: +ethCost.toFixed(ethCost < 0.01 ? 4 : 3),
       arbitrum: +(ethCost * 0.01).toFixed(5),
       base:     +(ethCost * 0.005).toFixed(5),
-      polygon:  +(ethCost * 0.0005).toFixed(5),
+      polygon:  +(Math.max(0.0005, ethCost * 0.0002)).toFixed(5),
       solana:   +(0.00025).toFixed(5),
     };
     fetchOk = true;
@@ -1283,5 +1282,5 @@ document.getElementById("alert-email").placeholder = T[lang].emailPh;
 document.getElementById("alert-limit").placeholder = T[lang].limitPh;
 </script>
 </body>
-<!-- build: 1772802947 -->
+<!-- build: 1772807359 -->
 </html>
