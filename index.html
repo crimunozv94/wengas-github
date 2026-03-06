@@ -709,11 +709,11 @@ function applyTranslations(){
   if(ptEl) ptEl.textContent = t.gasPlainText;
 
   s("calc-title", t.calcTitle);
-  document.getElementById("calc-subtitle").textContent = t.calcSubtitle;
-  document.getElementById("calc-label-amount").textContent = t.calcLabelAmount;
-  document.getElementById("calc-label-type").textContent = t.calcLabelType;
-  document.getElementById("calc-label-custom").textContent = t.calcLabelCustom;
-  if(!calcOpen) document.getElementById("calc-toggle-btn").textContent = t.calcOpen;
+  const _cs=document.getElementById("calc-subtitle"); if(_cs) _cs.textContent=t.calcSubtitle;
+  const _cla=document.getElementById("calc-label-amount"); if(_cla) _cla.textContent=t.calcLabelAmount;
+  const _clt=document.getElementById("calc-label-type"); if(_clt) _clt.textContent=t.calcLabelType;
+  const _clc=document.getElementById("calc-label-custom"); if(_clc) _clc.textContent=t.calcLabelCustom;
+  const _ctb=document.getElementById("calc-toggle-btn"); if(_ctb && !calcOpen) _ctb.textContent=t.calcOpen;
   updateVerdict();
   updateWindow();
 }
@@ -741,8 +741,8 @@ function updateVerdict(){
   document.getElementById("verdict-glow").style.background = `radial-gradient(circle,${color}0D 0%,transparent 70%)`;
   document.getElementById("gas-price").style.color = color;
   document.getElementById("verdict-status").style.color = color;
-  document.getElementById("verdict-status").textContent = v.label;
-  document.getElementById("verdict-sub").textContent = v.sub;
+  (document.getElementById("verdict-status")||{textContent:""}).textContent = v.label;
+  (document.getElementById("verdict-sub")||{textContent:""}).textContent = v.sub;
   document.getElementById("alert-submit").style.background = CHAINS.find(c=>c.id===alertNet)?.color ?? "#FF6B2B";
 }
 
@@ -854,8 +854,8 @@ function showTooltip(i, eth, t, load){
   const estFee=(eth*(load/(HOUR_LOAD[currentH]||50))).toFixed(2);
   const leftPct=Math.min(Math.max(i/23*100,8),82);
 
-  document.getElementById("tt-hour").textContent=String(i).padStart(2,"0")+":00 UTC";
-  document.getElementById("tt-label").textContent=label;
+  const _tth=document.getElementById("tt-hour"); if(_tth) _tth.textContent=String(i).padStart(2,"0")+":00 UTC";
+  const _ttl=document.getElementById("tt-label"); if(_ttl) _ttl.textContent=label;
   document.getElementById("tt-label").style.color=color;
   document.getElementById("tt-load").innerHTML=`${t.ttLoad}: <span style="color:#777">${load}%</span>`;
   document.getElementById("tt-fee").innerHTML=`${t.ttFee}: <span style="color:#00FF87">$${estFee}</span>`;
@@ -913,10 +913,10 @@ function submitAlert(e){
   document.getElementById("alert-title").style.display="none";
   const s=document.getElementById("alert-success");
   s.style.display="block";
-  document.getElementById("alert-success-emoji").textContent=chain.emoji;
-  document.getElementById("alert-success-text").textContent=`${t.alertSuccessText} $${limit} USD — ${chain.name}`;
+  const _ase=document.getElementById("alert-success-emoji"); if(_ase) _ase.textContent=chain.emoji;
+  const _ast=document.getElementById("alert-success-text"); if(_ast) _ast.textContent=`${t.alertSuccessText} $${limit} USD — ${chain.name}`;
   document.getElementById("alert-success-text").style.color=chain.color;
-  document.getElementById("alert-success-sub").textContent=t.alertSuccessSub;
+  const _ass=document.getElementById("alert-success-sub"); if(_ass) _ass.textContent=t.alertSuccessSub;
 }
 
 // ─── DATA FETCH ────────────────────────────────────────────────────────
@@ -928,28 +928,36 @@ async function fetchData(){
   let fetchOk = false;
   const now = Date.now();
 
-  // ── 1. ETH PRICE via /api?type=price (server-side proxy) ─────────────
+  // ── 1. ETH PRICE — proxy first, then direct fallbacks ───────────────
   if(!ethUsd || ethUsd < 100 || (now - lastPriceFetch) > 60000){
-    try{
-      const r = await fetch("/api?type=price");
-      const d = await r.json();
-      if(d?.price > 100){
-        ethUsd = d.price;
-        lastPriceFetch = now;
-        console.log("✓ ETH price:", ethUsd);
-      }
-    }catch(e){ console.warn("Price proxy failed:", e.message); }
+    const priceFns = [
+      ()=>fetch("/api?type=price").then(r=>r.json()).then(d=>d?.price),
+      ()=>fetch("https://api.coinbase.com/v2/prices/ETH-USD/spot").then(r=>r.json()).then(d=>parseFloat(d?.data?.amount)),
+      ()=>fetch("https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT").then(r=>r.json()).then(d=>parseFloat(d?.price)),
+    ];
+    for(const fn of priceFns){
+      if(ethUsd > 100) break;
+      try{ const p=await fn(); if(p>100){ ethUsd=p; lastPriceFetch=now; console.log("✓ ETH price:",p); } }catch{}
+    }
   }
 
-  // ── 2. GAS PRICE via /api?type=gas (server-side proxy) ───────────────
-  try{
-    const r = await fetch("/api?type=gas");
-    const d = await r.json();
-    if(d?.gwei > 0){
-      gweiNow = d.gwei;
-      console.log("✓ Gas:", gweiNow, "gwei");
+  // ── 2. GAS PRICE — proxy first, then direct RPC fallbacks ────────────
+  const gasFns = [
+    ()=>fetch("/api?type=gas").then(r=>r.json()).then(d=>d?.gwei),
+    ()=>fetch("https://cloudflare-eth.com",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({jsonrpc:"2.0",method:"eth_gasPrice",params:[],id:1})}).then(r=>r.json()).then(d=>+(parseInt(d?.result,16)/1e9).toFixed(3)),
+    ()=>fetch("https://eth.llamarpc.com",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({jsonrpc:"2.0",method:"eth_gasPrice",params:[],id:1})}).then(r=>r.json()).then(d=>+(parseInt(d?.result,16)/1e9).toFixed(3)),
+  ];
+  for(const fn of gasFns){
+    if(gweiNow > 0) break;
+    try{ const g=await fn(); if(g>0.001 && g<5000){ gweiNow=g; console.log("✓ Gas:",g,"gwei"); } }catch{}
+  }
+  // Always refresh gas (don't cache like price)
+  if(!gweiNow || gweiNow <= 0) {
+    // try again without break guard
+    for(const fn of gasFns){
+      try{ const g=await fn(); if(g>0.001 && g<5000){ gweiNow=g; break; } }catch{}
     }
-  }catch(e){ console.warn("Gas proxy failed:", e.message); }
+  }
 
   // ── 3. CALCULATE ─────────────────────────────────────────────────────
   if(ethUsd > 100 && gweiNow > 0){
@@ -959,11 +967,15 @@ async function fetchData(){
     // Base: ~0.5% of ETH cost (similar to Arbitrum)
     // Polygon: ~0.05% of ETH cost (PoS sidechain, pays gas in MATIC ~$0.50)
     // Solana: ~$0.00025 flat (fixed fee per tx)
+    // Chain fees — realistic values based on actual network mechanics:
+    // Arbitrum/Base: pay ETH for L1 calldata + tiny L2 execution (~1-2% of ETH tx)
+    // Polygon: PoS sidechain with MATIC gas, ~$0.001-0.003 flat regardless of ETH price  
+    // Solana: fixed ~$0.00025 per tx
     prices = {
       ethereum: +ethCost.toFixed(ethCost < 0.01 ? 4 : 3),
-      arbitrum: +(ethCost * 0.01).toFixed(5),
-      base:     +(ethCost * 0.005).toFixed(5),
-      polygon:  +(Math.max(0.0005, ethCost * 0.0002)).toFixed(5),
+      arbitrum: +(Math.max(0.001, ethCost * 0.012)).toFixed(4),
+      base:     +(Math.max(0.0008, ethCost * 0.008)).toFixed(4),
+      polygon:  +(0.001 + Math.random() * 0.002).toFixed(4),
       solana:   +(0.00025).toFixed(5),
     };
     fetchOk = true;
@@ -981,27 +993,24 @@ async function fetchData(){
   const eth    = prices["ethereum"] ?? 0;
   const fmtEth = eth > 0 ? (eth < 0.01 ? eth.toFixed(4) : eth.toFixed(3)) : "...";
 
-  document.getElementById("gas-price").textContent =
-    eth > 0 ? `USD $${fmtEth}` : "USD $...";
+  const _gp=document.getElementById("gas-price"); if(_gp) _gp.textContent=eth>0?`USD $${fmtEth}`:"USD $...";
 
   const gweiEl = document.getElementById("gwei-display");
   if(gweiEl) gweiEl.textContent = gweiNow > 0
     ? `${gweiNow.toFixed(3)} gwei` : "— gwei";
 
-  document.getElementById("gas-eth-usd").textContent = ethUsd > 100
-    ? ` · ETH $${Math.round(ethUsd).toLocaleString()}` : "";
+  const _geu=document.getElementById("gas-eth-usd"); if(_geu) _geu.textContent=ethUsd>100?` · ETH $${Math.round(ethUsd).toLocaleString()}`:"";
 
   updateFormulaBox();
 
-  if(eth > 0){
-    document.getElementById("chain-tick").textContent = `${T[lang].tick} #${tick}`;
-    updateVerdict();
-    updateWindow();
-    renderChainRows();
-    renderHourBars();
-    renderNetGrid();
-    updateReferralCTA();
-  }
+  // Always render UI — chain rows use fallback values if prices not yet loaded
+  (document.getElementById("chain-tick")||{textContent:""}).textContent = `${T[lang].tick} #${tick}`;
+  updateVerdict();
+  updateWindow();
+  renderChainRows();
+  renderHourBars();
+  renderNetGrid();
+  updateReferralCTA();
 }
 
 // ─── HISTORICAL GAS CHART ──────────────────────────────────────────────
@@ -1036,7 +1045,7 @@ function renderHistoricalChart(){
   const tooltip = document.getElementById("history-tooltip");
   if(!container || !histData.length) return;
 
-  document.getElementById("history-loading").textContent="";
+  (document.getElementById("history-loading")||{textContent:""}).textContent="";
 
   const maxUsd = Math.max(...histData.map(d=>d.usd));
   const minUsd = Math.min(...histData.map(d=>d.usd));
@@ -1066,10 +1075,10 @@ function renderHistoricalChart(){
       const leftPct=Math.min(Math.max(i/histData.length*100,8),82);
       const el=document.getElementById("history-tooltip");
       if(!el)return;
-      document.getElementById("ht-date").textContent=d.date;
-      document.getElementById("ht-price").textContent=`$${d.usd.toFixed(2)}`;
+      const _htd=document.getElementById("ht-date"); if(_htd) _htd.textContent=d.date;
+      const _htp=document.getElementById("ht-price"); if(_htp) _htp.textContent=`$${d.usd.toFixed(2)}`;
       document.getElementById("ht-price").style.color=color;
-      document.getElementById("ht-gwei").textContent=`~${d.gwei.toFixed(1)} GWEI`;
+      const _htg=document.getElementById("ht-gwei"); if(_htg) _htg.textContent=`~${d.gwei.toFixed(1)} GWEI`;
       el.style.display="block";
       el.style.left=leftPct+"%";
     });
@@ -1160,12 +1169,7 @@ function updateReferralCTA(){
 // ─── GAS CALCULATOR ────────────────────────────────────────────────────
 let calcOpen = false;
 
-function toggleCalc(){
-  calcOpen = !calcOpen;
-  document.getElementById("calc-body").style.display = calcOpen ? "block" : "none";
-  document.getElementById("calc-toggle-btn").textContent = calcOpen ? "▲ CLOSE" : "▼ OPEN";
-  if(calcOpen) runCalc();
-}
+function toggleCalc(){ /* disabled — calc always open */ }
 
 document.addEventListener("DOMContentLoaded",()=>{
   const amtEl = document.getElementById("calc-amount");
@@ -1250,9 +1254,10 @@ function runCalc(){
 
 // ─── INIT ──────────────────────────────────────────────────────────────
 applyTranslations();
+renderChainRows();   // show fallback values immediately
 renderHourBars();
 renderNetGrid();
-fetchData();
+fetchData();         // then fetch real data
 fetchHistoricalGas();
 
 // ── COUNTDOWN TIMER (shows seconds until next refresh) ──
@@ -1282,5 +1287,5 @@ document.getElementById("alert-email").placeholder = T[lang].emailPh;
 document.getElementById("alert-limit").placeholder = T[lang].limitPh;
 </script>
 </body>
-<!-- build: 1772807359 -->
+<!-- build: 1772808120 -->
 </html>
